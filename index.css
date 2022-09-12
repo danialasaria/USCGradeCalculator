@@ -70,19 +70,22 @@
   position: relative;
   text-align: center;
   width: 50%;
-  font-size: 60px;
   color: #f2f2f2;
   background: #f72331;
   font-size: 20px;
   font-weight: 700;
   margin: 0 5px 24px;
-  padding: 10px;
+  padding: 5px;
   margin: 0 5px 24px;
   font-family: "Libre Baskerville", serif;
 }
 
 .golden-btn + .golden-btn {
   margin-top: 1em;
+}
+
+#total, #totalTitle {
+    padding-top: 20px;
 }
 
 .golden-btn {
