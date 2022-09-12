@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>:)</title>
+  </head>
+  <body>
+    <h1 id="header">Trojan Grade Calculator</h1>
+    <div id="screen">
+      <h1>Get Your Current Grade</h1>
+
+      <div id="containersContainer">
+		<div id="leftMainContainer">
+        <div id="leftSubContainer">
+          <div id="innerContainer">
+            <h2>Assignment</h2>
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+            <input class="assignmentInput" />
+          </div>
+          <div id="innerContainer">
+            <h2>Grade (%)</h2>
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+            <input class="gradeInput" />
+          </div>
+          <div id="innerContainer">
+            <h2>Weight (%)</h2>
+            <input class="weightInput" />
+            <input class="weightInput" />
+            <input class="weightInput" />
+            <input class="weightInput" />
+            <input class="weightInput" />
+            <input class="weightInput" />
+            <input class="weightInput" />
+            <input class="weightInput" />
+          </div>
+		</div>
+		<div id="leftButton">
+			<h3>Total:</h3>
+			<h3 id="total"></h3>
+		  </div>
+		  <div id="leftButton">
+			<button
+			  class="golden-btn"
+			  id="gradeButton"
+			  style="font-size: 1.6em"
+			  onclick="calculateGrade()"
+			>
+			  Will I get into Med School?
+			</button>
+		  </div>
+	</div>
+        <div id="rightContainer">
+          <div id="rightInnerContainer">
+            <h2>Current Grade (%)</h2>
+            <input class="currGrade"/>
+          </div>
+          <div id="rightInnerContainer">
+            <h2>Dream Grade (%)</h2>
+            <input class="goalGrade"/>
+          </div>
+          <div id="rightInnerContainer">
+            <h2>Weight of Final Exam (%)</h2>
+            <input class="finalWeight"/>
+		  </div>
+		  <div id="leftButton">
+			<h3>What you Need:</h3>
+			<h3 id="whatYouNeed"></h3>
+		  </div>
+		  <div id="leftButton">
+			<button
+			  class="golden-btn"
+			  id="gradeButton"
+			  style="font-size: 1.6em"
+			  onclick="finalGradeNeeded()"
+			>
+			  Calculate what I need on the final
+			</button>
+		  </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      async function calculateGrade() {
+        const gradeArr = document.getElementsByClassName("gradeInput");
+        const weightArr = document.getElementsByClassName("weightInput");
+        let totalGrade = 0;
+        weightSum = 0;
+        for (let i = 0; i < gradeArr.length; i++) {
+          if (parseFloat(gradeArr[i].value) && parseFloat(weightArr[i].value)) {
+            weightSum += parseFloat(weightArr[i].value);
+            totalGrade +=
+              parseFloat(gradeArr[i].value) * parseFloat(weightArr[i].value);
+          }
+        }
+        result = totalGrade / weightSum || 0;
+        document.getElementById("total").innerHTML =
+          "&nbsp" +
+          (Math.round((result + Number.EPSILON) * 100) / 100).toString() +
+          "%";
+        console.log(result);
+	  }
+	  
+	  async function finalGradeNeeded() {
+		const currGrade = document.getElementsByClassName("currGrade")[0].value;
+		const goalGrade = document.getElementsByClassName("goalGrade")[0].value;
+		const finalWeight = document.getElementsByClassName("finalWeight")[0].value;
+
+		if(isNaN(parseFloat(currGrade)))
+		{
+			document.getElementById("whatYouNeed").innerHTML =
+			"&nbsp how are we going to do this without your current grade?";
+			return
+		}
+		else if(isNaN(parseFloat(goalGrade)))
+		{
+			document.getElementById("whatYouNeed").innerHTML =
+			"&nbsp how are we going to do this without your dream grade?";
+			return
+		}
+		else if(!parseFloat(finalWeight))
+		{
+			document.getElementById("whatYouNeed").innerHTML =
+			"&nbsp how are we going to do this without your dream grade?";
+			return
+		}
+		const currGradePercent = currGrade / 100;
+		const goalGradePercent = goalGrade / 100;
+		const finalGradePercent = finalWeight / 100;
+        const result = ((goalGradePercent - currGradePercent * (1 - finalGradePercent)) / finalGradePercent) * 100|| 0;
+        document.getElementById("whatYouNeed").innerHTML =
+          "&nbsp" +
+          (Math.round((result + Number.EPSILON) * 100) / 100).toString() +
+          "%";
+        console.log(result);
+      }
+    </script>
+  </body>
+</html>
